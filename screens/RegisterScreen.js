@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Button, Input, Image, Text } from "@rneui/base";
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const RegisterScreen = ({ navigation }) => {
     const [name, setName] = useState("");
@@ -14,13 +14,13 @@ const RegisterScreen = ({ navigation }) => {
     const register = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                const user = {
-                    ...userCredential.user,
+                const user = userCredential.user;
+                updateProfile(auth.currentUser, {
                     displayName: name,
                     photoURL:
                         imageUrl ||
                         "https://media.istockphoto.com/id/1313958250/vector/user-avatar-profile-icon-black-vector-illustration-on-transparent-background-website-or-app.jpg?s=612x612&w=0&k=20&c=oGGyxXc1jaRAopcs4ZEkZ1LbtAoQwKp4Q0niLvJNk-o=",
-                };
+                });
             })
             .catch((err) => alert(err.message));
     };
