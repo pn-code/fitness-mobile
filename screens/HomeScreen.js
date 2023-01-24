@@ -3,11 +3,10 @@ import { StatusBar } from "expo-status-bar";
 import { Button, Input, Image } from "@rneui/base";
 import React, { useEffect, useState } from "react";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView>
             <StatusBar style="light" />
-            <Text>Hello World, I am HomeScreen</Text>
         </SafeAreaView>
     );
 };

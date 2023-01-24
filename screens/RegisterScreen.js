@@ -2,7 +2,7 @@ import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button, Input, Image, Text } from "@rneui/base";
 import React, { useEffect, useState } from "react";
-import { auth } from "../firebase";
+import { auth } from "../firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const RegisterScreen = ({ navigation }) => {

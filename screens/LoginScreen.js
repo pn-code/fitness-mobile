@@ -2,23 +2,13 @@ import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button, Input, Image } from "@rneui/base";
 import React, { useEffect, useState } from "react";
-import { auth } from "../firebase";
+import { auth } from "../firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((authUser) => {
-            if (authUser) {
-                navigation.replace("Home");
-            }
-        });
-
-        return unsubscribe;
-    }, []);
 
     const signIn = () => {
         signInWithEmailAndPassword(auth, email, password)
