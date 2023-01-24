@@ -3,49 +3,29 @@ import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import HomeScreen from "./screens/HomeScreen";
-import ExerciseScreen from "./screens/ExerciseScreen";
-import NutritionScreen from "./screens/NutritionScreen";
-import FAQScreen from "./screens/FAQScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import {
-    createBottomTabNavigator,
-} from "@react-navigation/bottom-tabs";
-import { auth } from "./firebase/firebase";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 
-const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 const globalScreenOptions = {
     headerStyle: { backgroundColor: "black" },
     headerTitleStyle: { color: "white" },
     headerTintColor: "white",
-    tabBarActiveTintColor: 'white',
-    tabBarInactiveTintColor: 'white',
-    tabBarActiveBackgroundColor: "gray",
-    tabBarInactiveBackgroundColor: "black",
+    // tabBarActiveTintColor: "white",
+    // tabBarInactiveTintColor: "white",
+    // tabBarActiveBackgroundColor: "gray",
+    // tabBarInactiveBackgroundColor: "black",
 };
 
 export default function App() {
-    const [user, setUser] = useState(auth || null);
-
     return (
         <NavigationContainer>
-            {!user && (
-                <Tab.Navigator screenOptions={globalScreenOptions}>
-                    <Tab.Screen name="Login" component={LoginScreen} />
-                    <Tab.Screen name="Register" component={RegisterScreen} />
-                </Tab.Navigator>
-            )}
-
-            {user && (
-                <Tab.Navigator screenOptions={globalScreenOptions}>
-                    <Tab.Screen firstRoute name="Home" component={HomeScreen} />
-                    <Tab.Screen name="Exercise" component={ExerciseScreen} />
-                    <Tab.Screen name="Nutrition" component={NutritionScreen} />
-                    <Tab.Screen name="FAQ" component={FAQScreen} />
-                    <Tab.Screen name="Profile" component={ProfileScreen} />
-                </Tab.Navigator>
-            )}
+            <Stack.Navigator screenOptions={globalScreenOptions}>
+                <Stack.Screen firstRoute name="Login" component={LoginScreen} />
+                <Stack.Screen name="Register" component={RegisterScreen} />
+                <Stack.Screen name="Home" component={HomeScreen} />
+            </Stack.Navigator>
         </NavigationContainer>
     );
 }
