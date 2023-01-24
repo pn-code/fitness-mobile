@@ -3,10 +3,12 @@ import { StatusBar } from "expo-status-bar";
 import { Button, Input, Image } from "@rneui/base";
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -18,12 +20,30 @@ const LoginScreen = ({ navigation }) => {
         return unsubscribe;
     }, []);
 
-    const signIn = () => {};
+    const signIn = () => {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+            })
+            .then(() => navigation.replace("Home"))
+
+            .catch((error) => {
+                if (error.code === "auth/wrong-password") {
+                    setError("Wrong Password");
+                } else if (error.code === "auth/user-not-found") {
+                    setError("No User Found");
+                } else if (error.code === "auth/invalid-email") {
+                    setError("Invalid Email");
+                } else {
+                    console.log(`${error.code}: ${error.message}`);
+                }
+            });
+    };
 
     return (
         <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <StatusBar style="light" />
-
+            {error && <Text style={styles.error}>{error}</Text>}
             <Image
                 source={{
                     uri: "https://icon-library.com/images/strength-icon/strength-icon-0.jpg",
@@ -77,5 +97,9 @@ const styles = StyleSheet.create({
     button: {
         width: 200,
         marginTop: 10,
+    },
+    error: {
+        color: "red",
+        fontWeight: "bold",
     },
 });
