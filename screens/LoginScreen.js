@@ -1,11 +1,22 @@
 import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button, Input, Image } from "@rneui/base";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { auth } from "../firebase";
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((authUser) => {
+            if (authUser) {
+                navigation.replace("Home");
+            }
+        });
+
+        return unsubscribe;
+    }, []);
 
     const signIn = () => {};
 
@@ -41,7 +52,7 @@ const LoginScreen = ({navigation}) => {
                 title="Login"
             />
             <Button
-                onPress={() => navigation.navigate('Register')}
+                onPress={() => navigation.navigate("Register")}
                 containerStyle={styles.button}
                 type="outline"
                 title="Register"
