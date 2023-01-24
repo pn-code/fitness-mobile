@@ -10,6 +10,14 @@ const LoginScreen = ({ navigation }) => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
 
+    useEffect(() => {
+        auth.onAuthStateChanged((authUser) => {
+            if (authUser) {
+                navigation.replace("Home");
+            }
+        });
+    });
+
     const signIn = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
