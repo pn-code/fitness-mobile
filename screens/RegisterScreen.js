@@ -1,6 +1,6 @@
-import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, Input, Image } from "@rneui/base";
+import { Button, Input, Image, Text } from "@rneui/base";
 import React, { useState } from "react";
 
 const RegisterScreen = ({ navigation }) => {
@@ -8,6 +8,8 @@ const RegisterScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [imageUrl, setImageUrl] = useState("");
+
+    const register = () => {};
 
     return (
         <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -46,6 +48,8 @@ const RegisterScreen = ({ navigation }) => {
                     onSubmitEditing={register}
                 />
             </View>
+            <Button onPress={register} title="Register" style={{}} raised />
+            <View style={{ height: 100 }} />
         </KeyboardAvoidingView>
     );
 };
@@ -53,5 +57,18 @@ const RegisterScreen = ({ navigation }) => {
 export default RegisterScreen;
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 10,
+        backgroundColor: "white",
+    },
+    inputContainer: {
+        width: 300,
+    },
+    button: {
+        width: 200,
+        marginTop: 10,
+    },
 });
