@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button, Input, Image } from "@rneui/base";
 import React, { useState } from "react";
@@ -7,8 +7,12 @@ const LoginScreen = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const signIn = () => {};
+
+    const register = () => {};
+
     return (
-        <View>
+        <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <StatusBar style="light" />
 
             <Image
@@ -17,7 +21,6 @@ const LoginScreen = () => {
                 }}
                 style={{ width: 200, height: 200 }}
             />
-            <Text>Login Screen</Text>
             <View style={styles.inputContainer}>
                 <Input
                     placeholder="Email"
@@ -34,12 +37,36 @@ const LoginScreen = () => {
                     onChangeText={(text) => setPassword(text)}
                 />
             </View>
-        </View>
+            <Button
+                onPress={signIn}
+                containerStyle={styles.button}
+                title="Login"
+            />
+            <Button
+                onPress={register}
+                containerStyle={styles.button}
+                type="outline"
+                title="Register"
+            />
+            <View style={{ height: 100 }} />
+        </KeyboardAvoidingView>
     );
 };
 
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-    inputContainer: {},
+    container: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "white",
+    },
+    inputContainer: {
+        width: 300,
+    },
+    button: {
+        width: 200,
+        marginTop: 10,
+    },
 });
