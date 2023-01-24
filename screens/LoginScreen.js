@@ -3,13 +3,11 @@ import { StatusBar } from "expo-status-bar";
 import { Button, Input, Image } from "@rneui/base";
 import React, { useState } from "react";
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const signIn = () => {};
-
-    const register = () => {};
 
     return (
         <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -43,7 +41,7 @@ const LoginScreen = () => {
                 title="Login"
             />
             <Button
-                onPress={register}
+                onPress={() => navigation.navigate('Register')}
                 containerStyle={styles.button}
                 type="outline"
                 title="Register"
