@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { Button, Input, ListItem } from "@rneui/base";
+import ExerciseDay from "../components/ExerciseDay";
 
 const ExerciseScreen = () => {
   const [name, setName] = useState("");
@@ -35,15 +36,7 @@ const ExerciseScreen = () => {
 
       <View>
         {/* Rendering Daily Entries Here*/}
-        <ScrollView>
-          <Text>Date</Text>
-          {/* Rendering Exercise Entries Here */}
-          <View>
-            <Text>Exercise Name</Text>
-            <Text>Sets</Text>
-            <Text>Reps</Text>
-          </View>
-        </ScrollView>
+        <ExerciseDay />
       </View>
     </View>
   );
