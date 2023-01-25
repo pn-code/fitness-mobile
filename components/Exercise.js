@@ -5,7 +5,7 @@ const Exercise = ({ name, weight, sets, reps }) => {
   return (
     <View style={styles.exercise}>
       <Text style={styles.text}>
-        {name} @ {weight}
+        {name} @ {weight} lbs
       </Text>
       <Text style={styles.text}>
         {sets} x {reps}
