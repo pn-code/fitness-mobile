@@ -4,8 +4,12 @@ import React from "react";
 const Exercise = ({ name, weight, sets, reps }) => {
   return (
     <View style={styles.exercise}>
-      <Text>{name} @ {weight}</Text>
-      <Text>{sets} x {reps}</Text>
+      <Text style={styles.text}>
+        {name} @ {weight}
+      </Text>
+      <Text style={styles.text}>
+        {sets} x {reps}
+      </Text>
     </View>
   );
 };
@@ -17,5 +21,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  text: {
+    fontSize: 24,
   },
 });
