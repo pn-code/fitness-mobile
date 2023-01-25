@@ -8,8 +8,14 @@ import ProfileScreen from "../screens/ProfileScreen";
 import { Avatar } from "@rneui/base";
 import { auth } from "../firebase/firebase";
 
-const HomeTabs = () => {
+const HomeTabs = ({navigation}) => {
     const Tab = createBottomTabNavigator();
+
+    const signOutUser = () => {
+      auth.signOut().then(()=> {
+        navigation.replace("Login")
+      })
+    }
 
     const options = {
         headerStyle: { backgroundColor: "black" },
@@ -21,7 +27,7 @@ const HomeTabs = () => {
         tabBarInactiveBackgroundColor: "black",
         headerRight: () => (
             <View>
-                <TouchableOpacity style={{ marginRight: 10 }}>
+                <TouchableOpacity onPress={signOutUser} style={{ marginRight: 10 }}>
                     <Avatar source={{ uri: auth?.currentUser?.photoURL }} />
                 </TouchableOpacity>
             </View>
