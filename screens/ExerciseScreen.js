@@ -20,20 +20,15 @@ const ExerciseScreen = () => {
     };
 
     const id =
-        auth.currentUser.uid +
-        ":" +
-        new Date().toLocaleDateString("en-us", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-        });
+        auth.currentUser.uid + ":" + new Date().toISOString().slice(0, 10);
 
     // Load Exercises From DB
     useEffect(() => {
-        const unsubscribe = onSnapshot(doc(db, "exercise_days", id), (doc) =>
-            setExercises(doc.data()?.exercises)
-        );
-
+        const unsubscribe = onSnapshot(doc(db, "exercise_days", id), (doc) => {
+            if (doc.exists()) {
+                setExercises(doc.data().exercises);
+            }
+        });
         return unsubscribe;
     }, []);
 
@@ -86,7 +81,7 @@ const ExerciseScreen = () => {
 
             <View>
                 {/* Rendering Daily Entries Here*/}
-                <ScrollView>
+                <ScrollView style={{ marginHorizontal: 40 }}>
                     <Text h4 style={styles.date}>
                         Today
                     </Text>
