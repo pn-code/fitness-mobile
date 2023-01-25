@@ -1,17 +1,9 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React from "react";
-import Exercise from "./Exercise";
 
-const ExerciseDay = () => {
-  return (
-    <ScrollView>
-      <Text>Date</Text>
-      {/* Rendering Exercise Entries Here */}
-      <Exercise/>
-      <Exercise/>
-      <Exercise/>
-    </ScrollView>
-  );
+const ExerciseDay = ({ exercises }) => {
+  console.log(exercises);
+  return <ScrollView>{/* Used to View Other Days */}</ScrollView>;
 };
 
 export default ExerciseDay;
