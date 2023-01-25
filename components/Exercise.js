@@ -1,16 +1,21 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Exercise = () => {
+const Exercise = ({ name, weight, sets, reps }) => {
   return (
-    <View>
-      <Text>Exercise Name</Text>
-      <Text>Sets</Text>
-      <Text>Reps</Text>
+    <View style={styles.exercise}>
+      <Text>{name} @ {weight}</Text>
+      <Text>{sets} x {reps}</Text>
     </View>
   );
 };
 
 export default Exercise;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  exercise: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+});
