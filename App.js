@@ -2,20 +2,14 @@ import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import HomeScreen from "./screens/HomeScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
+import HomeTabs from "./components/HomeTabs";
 
 const Stack = createNativeStackNavigator();
 
 const globalScreenOptions = {
-    headerStyle: { backgroundColor: "black" },
-    headerTitleStyle: { color: "white" },
-    headerTintColor: "white",
-    // tabBarActiveTintColor: "white",
-    // tabBarInactiveTintColor: "white",
-    // tabBarActiveBackgroundColor: "gray",
-    // tabBarInactiveBackgroundColor: "black",
+    headerShown: false,
 };
 
 export default function App() {
@@ -24,7 +18,7 @@ export default function App() {
             <Stack.Navigator screenOptions={globalScreenOptions}>
                 <Stack.Screen firstRoute name="Login" component={LoginScreen} />
                 <Stack.Screen name="Register" component={RegisterScreen} />
-                <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="Home" component={HomeTabs} />
             </Stack.Navigator>
         </NavigationContainer>
     );
