@@ -1,8 +1,9 @@
 import { StyleSheet, View, ScrollView } from "react-native";
 import React, { useState } from "react";
-import { Button, Input, ListItem, Text } from "@rneui/base";
-import ExerciseDay from "../components/ExerciseDay";
+import { Button, Input, Text } from "@rneui/base";
 import Exercise from "../components/Exercise";
+import { auth, db } from "../firebase/firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 const ExerciseScreen = () => {
   const [name, setName] = useState("");
@@ -11,16 +12,31 @@ const ExerciseScreen = () => {
   const [reps, setReps] = useState("");
   const [exercises, setExercises] = useState([]);
 
-  const handlePress = () => {
-    const exercise = {
-      name,
-      weight,
-      sets,
-      reps,
-    };
+  const exercise = {
+    name,
+    weight,
+    sets,
+    reps,
+  };
+
+  const id =
+    auth.currentUser.uid +
+    ":" +
+    new Date().toLocaleDateString("en-us", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+
+  const handlePress = async () => {
     setExercises((exercises) => [...exercises, exercise]);
     clearInputs();
+    await setDoc(doc(db, "exercise_days", id), {
+      exercises,
+      userId: auth.currentUser.uid,
+    });
   };
+
   const clearInputs = () => {
     setName("");
     setWeight("");
@@ -32,12 +48,29 @@ const ExerciseScreen = () => {
     <View>
       <View style={styles.modal}>
         <Input
+          type="text"
           placeholder="Exercise Name"
           onChangeText={(text) => setName(text)}
+          value={name}
         />
-        <Input placeholder="Weight" onChangeText={(text) => setWeight(text)} />
-        <Input placeholder="Sets" onChangeText={(text) => setSets(text)} />
-        <Input placeholder="Reps" onChangeText={(text) => setReps(text)} />
+        <Input
+          type="number"
+          placeholder="Weight (lb)"
+          onChangeText={(text) => setWeight(text)}
+          value={weight}
+        />
+        <Input
+          type="number"
+          placeholder="Sets"
+          onChangeText={(text) => setSets(text)}
+          value={sets}
+        />
+        <Input
+          type="number"
+          placeholder="Reps"
+          onChangeText={(text) => setReps(text)}
+          value={reps}
+        />
       </View>
 
       <Button onPress={handlePress} title="Add Exercise" />
@@ -70,6 +103,6 @@ export default ExerciseScreen;
 
 const styles = StyleSheet.create({
   date: {
-    textAlign: "center"
+    textAlign: "center",
   },
 });
