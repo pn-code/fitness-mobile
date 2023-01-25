@@ -19,12 +19,17 @@ const ExerciseScreen = () => {
         reps,
     };
 
-    const id =
-        auth.currentUser.uid + ":" + new Date().toISOString().slice(0, 10);
+    const dbPath = doc(
+        db,
+        "users",
+        auth.currentUser.uid,
+        "days",
+        new Date().toISOString().slice(0, 10)
+    );
 
     // Load Exercises From DB
     useEffect(() => {
-        const unsubscribe = onSnapshot(doc(db, "exercise_days", id), (doc) => {
+        const unsubscribe = onSnapshot(dbPath, (doc) => {
             if (doc.exists()) {
                 setExercises(doc.data().exercises);
             }
@@ -34,9 +39,8 @@ const ExerciseScreen = () => {
 
     const handlePress = async () => {
         setExercises((exercises) => [...exercises, exercise]);
-        await setDoc(doc(db, "exercise_days", id), {
+        await setDoc(dbPath, {
             exercises: [...exercises, exercise],
-            userId: auth.currentUser.uid,
         });
         clearInputs();
     };
@@ -49,7 +53,10 @@ const ExerciseScreen = () => {
     };
 
     return (
-        <View>
+        <View style={styles.container}>
+            <View style={styles.seeAllBtn}>
+                <Button title={"See All Entries"} />
+            </View>
             <View style={styles.modal}>
                 <Input
                     type="text"
