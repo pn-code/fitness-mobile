@@ -30,7 +30,7 @@ const MyPlansScreen = ({ navigation }) => {
             ) : (
                 <ScrollView>
                     {plans.map((plan) => (
-                        <PlanCard plan={plan} />
+                        <PlanCard key={plan.id} plan={plan} />
                     ))}
                 </ScrollView>
             )}

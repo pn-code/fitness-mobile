@@ -21,7 +21,8 @@ const BuildPlanScreen = ({ navigation }) => {
     const handleSubmit = async () => {
         await setDoc(planRef, {
           title,
-          exercises: [...exercises]
+          exercises: [...exercises],
+          id: uuidv4()
         });
         navigation.replace("My Plans")
     };
