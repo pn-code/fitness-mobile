@@ -24,11 +24,11 @@ const MyPlansScreen = ({ navigation }) => {
     });
 
     return (
-        <View>
+        <View style={styles.container}>
             {plans.length === 0 ? (
                 <Text>You currently have no plans</Text>
             ) : (
-                <ScrollView>
+                <ScrollView style={styles.scrollView}>
                     {plans.map((plan) => (
                         <PlanCard key={plan.id} plan={plan} />
                     ))}
@@ -49,4 +49,11 @@ const MyPlansScreen = ({ navigation }) => {
 
 export default MyPlansScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    scrollView: {
+        marginHorizontal: 20,
+    },
+});

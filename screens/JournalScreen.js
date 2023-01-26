@@ -37,13 +37,15 @@ const JournalScreen = () => {
         const unsubscribe = onSnapshot(q, (snapshot) => {
             const days = [];
             snapshot.forEach((doc) => {
-                days.push(doc.data());
+                days.unshift(doc.data());
             });
             if (days.length > 0) {
                 setEntries(days);
-                setExercises(
-                    days.filter((day) => day.date === today)[0].exercises
-                );
+                if (days.filter((day) => day.date === today).length > 0) {
+                    setExercises(
+                        days.filter((day) => day.date === today)[0].exercises
+                    );
+                }
             }
         });
 
@@ -113,7 +115,7 @@ const JournalScreen = () => {
 
             <Button onPress={handlePress} title="Add Exercise" />
 
-            <ScrollView>
+            <ScrollView style={styles.scrollView}>
                 {entries.map((entry) => (
                     <Day
                         key={entry.date}
@@ -129,9 +131,14 @@ const JournalScreen = () => {
 export default JournalScreen;
 
 const styles = StyleSheet.create({
-    container: {},
+    container: {
+        flex: 1,
+    },
     inputContainer: {
         backgroundColor: "#404040",
+    },
+    scrollView: {
+        marginHorizontal: 20,
     },
     flexInputs: {
         display: "flex",
