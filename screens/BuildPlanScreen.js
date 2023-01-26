@@ -1,6 +1,7 @@
 import { StyleSheet, Text, ScrollView, View } from "react-native";
 import React, { useState } from "react";
 import { Button, Input } from "@rneui/base";
+import ExerciseCard from "../components/ExerciseCard"
 
 const BuildPlanScreen = () => {
     const [title, setTitle] = useState("");
@@ -9,9 +10,19 @@ const BuildPlanScreen = () => {
         sets: "",
         reps: "",
     });
+    const [exercises, setExercises] = useState([]);
 
     const handleChange = (text, name) => {
         setExercise((exercise) => ({ ...exercise, [name]: text }));
+    };
+
+    const handleExercise = () => {
+        setExercises((exercises) => [...exercises, exercise]);
+        setExercise({
+            name: "",
+            sets: "",
+            reps: "",
+        });
     };
 
     return (
@@ -44,9 +55,11 @@ const BuildPlanScreen = () => {
                 />
             </View>
 
-            <ScrollView>{/* Render ExerciseCards Here */}</ScrollView>
+            <ScrollView>
+              {exercises.map(exercise => <ExerciseCard key={exercise.name + new Date()} exercise={exercise}/>)}
+            </ScrollView>
 
-            <Button title="Add Exercise" />
+            <Button onPress={handleExercise} title="Add Exercise" />
             <Button title="Submit Plan" />
         </ScrollView>
     );
