@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
     container: {
     },
     name: {
-        fontSize: 18,
+        fontSize: 24,
         fontWeight: "bold",
     },
     detail: {
-        fontSize: 18,
+        fontSize: 24,
     },
 });
