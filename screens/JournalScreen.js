@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Button, Input } from "@rneui/base";
 import { auth, db } from "../firebase/firebase";
 import { doc, setDoc, onSnapshot, collection, query } from "firebase/firestore";
-import ExerciseDay from "../components/ExerciseDay";
+import Day from "../components/Day";
 
-const ExerciseScreen = () => {
+const JournalScreen = () => {
     const [name, setName] = useState("");
     const [weight, setWeight] = useState("");
     const [sets, setSets] = useState("");
@@ -93,7 +93,7 @@ const ExerciseScreen = () => {
 
             <ScrollView>
                 {entries.map((entry) => (
-                    <ExerciseDay
+                    <Day
                         key={entry.date}
                         date={
                             entry.date === new Date().toISOString().slice(0, 10)
@@ -108,6 +108,6 @@ const ExerciseScreen = () => {
     );
 };
 
-export default ExerciseScreen;
+export default JournalScreen;
 
 const styles = StyleSheet.create({});

@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import ExerciseScreen from "../screens/ExerciseScreen";
-import NutritionScreen from "../screens/NutritionScreen";
+import JournalScreen from "../screens/JournalScreen";
+import PlansScreen from "../screens/PlansScreen";
 import FAQScreen from "../screens/FAQScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import { Avatar } from "@rneui/base";
@@ -36,8 +36,8 @@ const HomeTabs = ({navigation}) => {
 
     return (
         <Tab.Navigator screenOptions={options}>
-            <Tab.Screen name="Exercise" component={ExerciseScreen} />
-            <Tab.Screen name="Nutrition" component={NutritionScreen} />
+            <Tab.Screen name="Journal" component={JournalScreen} />
+            <Tab.Screen name="Plans" component={PlansScreen} />
             <Tab.Screen name="FAQ" component={FAQScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>

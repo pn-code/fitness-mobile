@@ -3,12 +3,13 @@ import { Text } from "@rneui/base";
 import React from "react";
 import Exercise from "./Exercise";
 
-const ExerciseDay = ({ date, exercises }) => {
+const Day = ({ date, exercises }) => {
     return (
         <ScrollView style={styles.container}>
             <Text h4 style={styles.date}>
                 {date}
             </Text>
+            <Text h5>Exercises: </Text>
             {exercises.map((exercise) => (
                 <Exercise
                     key={
@@ -27,7 +28,7 @@ const ExerciseDay = ({ date, exercises }) => {
     );
 };
 
-export default ExerciseDay;
+export default Day;
 
 const styles = StyleSheet.create({
     container: {
@@ -36,6 +37,6 @@ const styles = StyleSheet.create({
     },
     date: {
         textAlign: "center",
-        fontWeight: 800,
+        fontWeight: .8,
     },
 });
