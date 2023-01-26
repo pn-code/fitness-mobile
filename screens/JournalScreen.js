@@ -13,6 +13,13 @@ const JournalScreen = () => {
     const [exercises, setExercises] = useState([]);
     const [entries, setEntries] = useState([]);
 
+    const today = new Date()
+        .toLocaleString("en-US", {
+            timeZone: "America/Los_Angeles",
+        })
+        .slice(0, 9)
+        .replaceAll("/", "-");
+
     const exercise = {
         name,
         weight,
@@ -23,13 +30,7 @@ const JournalScreen = () => {
     // Looks into entire "days" collection of our user
     const q = query(collection(db, "users", auth.currentUser.uid, "days"));
 
-    const dbPath = doc(
-        db,
-        "users",
-        auth.currentUser.uid,
-        "days",
-        new Date().toISOString().slice(0, 10)
-    );
+    const dbPath = doc(db, "users", auth.currentUser.uid, "days", today);
 
     // Load Exercises From DB
     useEffect(() => {
@@ -38,7 +39,10 @@ const JournalScreen = () => {
             snapshot.forEach((doc) => {
                 days.push(doc.data());
             });
-            setEntries(days);
+            if (days.length > 0) {
+                setEntries(days);
+                setExercises(days.filter(day => day.date === today)[0].exercises);
+            }
         });
 
         return unsubscribe;
@@ -48,7 +52,7 @@ const JournalScreen = () => {
         setExercises((exercises) => [...exercises, exercise]);
         await setDoc(dbPath, {
             exercises: [...exercises, exercise],
-            date: new Date().toISOString().slice(0, 10),
+            date: today,
         });
         clearInputs();
     };
@@ -59,7 +63,7 @@ const JournalScreen = () => {
         setSets("");
         setReps("");
     };
-
+    console.log(exercises)
     return (
         <View style={styles.container}>
             <View style={styles.modal}>
@@ -95,11 +99,7 @@ const JournalScreen = () => {
                 {entries.map((entry) => (
                     <Day
                         key={entry.date}
-                        date={
-                            entry.date === new Date().toISOString().slice(0, 10)
-                                ? "Today"
-                                : entry.date
-                        }
+                        date={entry.date}
                         exercises={entry.exercises}
                     />
                 ))}
