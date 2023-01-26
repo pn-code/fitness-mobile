@@ -34,15 +34,6 @@ const MyPlansScreen = ({ navigation }) => {
                     ))}
                 </ScrollView>
             )}
-
-            <Button
-                title="Build Plan"
-                onPress={() => navigation.navigate("Build Plan")}
-            />
-            <Button
-                title="Add Existing Plan"
-                onPress={() => navigation.navigate("Add Plan")}
-            />
         </View>
     );
 };
