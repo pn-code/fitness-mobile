@@ -41,7 +41,9 @@ const JournalScreen = () => {
             });
             if (days.length > 0) {
                 setEntries(days);
-                setExercises(days.filter(day => day.date === today)[0].exercises);
+                setExercises(
+                    days.filter((day) => day.date === today)[0].exercises
+                );
             }
         });
 
@@ -63,34 +65,50 @@ const JournalScreen = () => {
         setSets("");
         setReps("");
     };
-    console.log(exercises)
+
     return (
         <View style={styles.container}>
-            <View style={styles.modal}>
+            <View style={styles.inputContainer}>
                 <Input
+                    placeholderTextColor="#ababab"
+                    style={styles.input}
                     type="text"
                     placeholder="Exercise Name"
                     onChangeText={(text) => setName(text)}
                     value={name}
                 />
-                <Input
-                    type="number"
-                    placeholder="Weight (lb)"
-                    onChangeText={(text) => setWeight(text)}
-                    value={weight}
-                />
-                <Input
-                    type="number"
-                    placeholder="Sets"
-                    onChangeText={(text) => setSets(text)}
-                    value={sets}
-                />
-                <Input
-                    type="number"
-                    placeholder="Reps"
-                    onChangeText={(text) => setReps(text)}
-                    value={reps}
-                />
+                <View style={styles.flexInputs}>
+                    <View>
+                        <Input
+                            placeholderTextColor="#ababab"
+                            style={styles.input}
+                            type="number"
+                            placeholder="Weight (lb)"
+                            onChangeText={(text) => setWeight(text)}
+                            value={weight}
+                        />
+                    </View>
+                    <View>
+                        <Input
+                            placeholderTextColor="#ababab"
+                            style={styles.input}
+                            type="number"
+                            placeholder="Sets"
+                            onChangeText={(text) => setSets(text)}
+                            value={sets}
+                        />
+                    </View>
+                    <View>
+                        <Input
+                            placeholderTextColor="#ababab"
+                            style={styles.input}
+                            type="number"
+                            placeholder="Reps"
+                            onChangeText={(text) => setReps(text)}
+                            value={reps}
+                        />
+                    </View>
+                </View>
             </View>
 
             <Button onPress={handlePress} title="Add Exercise" />
@@ -110,4 +128,19 @@ const JournalScreen = () => {
 
 export default JournalScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container: {},
+    inputContainer: {
+        backgroundColor: "#404040",
+    },
+    flexInputs: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    input: {
+        width: 100,
+        color: "white",
+        marginVertical: 10,
+    },
+});
