@@ -17,6 +17,8 @@ export default ExerciseCard;
 
 const styles = StyleSheet.create({
     container: {
+        marginHorizontal: 12,
+        padding: 20,
     },
     name: {
         fontSize: 24,
