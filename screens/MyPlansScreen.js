@@ -8,28 +8,29 @@ import PlanCard from "../components/PlanCard";
 const MyPlansScreen = ({ navigation }) => {
     const [plans, setPlans] = useState([]);
 
-    const q = query(collection(db, "plans"), where("userId", "==", auth.currentUser.uid ));
+    const q = query(collection(db, "plans"), where("savedBy", "array-contains", auth.currentUser.uid ));
+
+    const getSnapshot = async () => {
+        const snapshot = await getDocs(q)
+
+        const snapshotPlans = [];
+        snapshot.forEach((doc) => {
+            snapshotPlans.push(doc.data());
+        });
+        if (snapshotPlans.length > 0) {
+            setPlans(snapshotPlans);
+        }
+    }
 
     // Set Plans to Plans Created by User
     useEffect(() => {
-        const getSnapshot = async () => {
-            const snapshot = await getDocs(q)
-
-            const snapshotPlans = [];
-            snapshot.forEach((doc) => {
-                snapshotPlans.push(doc.data());
-            });
-            if (snapshotPlans.length > 0) {
-                setPlans(snapshotPlans);
-            }
-        }
         getSnapshot();
-
-        return getSnapshot;
     },[]);
+    
 
     return (
         <View style={styles.container}>
+            <Button onPress={getSnapshot} title="Refresh"/>
             {plans.length === 0 ? (
                 <Text>You currently have no plans</Text>
             ) : (
