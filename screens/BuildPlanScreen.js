@@ -17,16 +17,16 @@ const BuildPlanScreen = ({ navigation }) => {
 
     const [exercises, setExercises] = useState([]);
 
-    const planRef = doc(db, "plans", uuidv4());
-
     const handleSubmit = async () => {
-        await setDoc(planRef, {
+        const planId = uuidv4()
+        await setDoc(doc(db, "plans", planId), {
             title,
             desc,
             exercises: [...exercises],
-            id: uuidv4(),
+            id: planId,
             userId: auth.currentUser.uid,
-            user: auth.currentUser.displayName
+            user: auth.currentUser.displayName,
+            savedBy: [auth.currentUser.uid]
         });
         navigation.replace("My Plans");
     };
@@ -56,7 +56,7 @@ const BuildPlanScreen = ({ navigation }) => {
                 onChangeText={(text) => setDesc(text)}
                 placeholder="Plan Description"
                 keyboardType="text"
-                value={title}
+                value={desc}
             />
 
             <View>
