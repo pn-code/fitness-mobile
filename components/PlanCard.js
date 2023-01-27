@@ -1,22 +1,32 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
+import React, { useState } from "react";
 import ExerciseCard from "./ExerciseCard";
 
 const PlanCard = ({ plan }) => {
+    const [viewPlan, setViewPlan] = useState(false);
+
     return (
-        <View style={styles.container}>
-            <View style={styles.planText}>
-                <Text style={styles.title}>{plan.title}</Text>
-                <Text>{plan.desc}</Text>
-            </View>
-            {/* Btn that opens PlanDetails as a modal */}
-            <Button style={styles.viewPlanBtn}>View Plan</Button>
-            {/* {plan.exercises.map((exercise) => (
-                <ExerciseCard
-                    key={exercise.name + exercise.sets + exercise.reps}
-                    exercise={exercise}
+        <View>
+            <View style={styles.planContainer}>
+                <View style={styles.planText}>
+                    <Text style={styles.title}>{plan.title}</Text>
+                    <Text>{plan.desc}</Text>
+                </View>
+
+                <Button
+                    title={viewPlan ? "Hide Plan" : "View Plan"}
+                    onPress={() => setViewPlan((viewPlan) => !viewPlan)}
+                    style={styles.viewPlanBtn}
                 />
-            ))} */}
+            </View>
+
+            {viewPlan &&
+                plan.exercises.map((exercise) => (
+                    <ExerciseCard
+                        key={exercise.name + exercise.sets + exercise.reps}
+                        exercise={exercise}
+                    />
+                ))}
         </View>
     );
 };
@@ -24,7 +34,7 @@ const PlanCard = ({ plan }) => {
 export default PlanCard;
 
 const styles = StyleSheet.create({
-    container: {
+    planContainer: {
         flexDirection: "row",
         alignItems: "center",
         gap: 16,
