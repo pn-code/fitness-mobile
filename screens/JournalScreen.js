@@ -54,10 +54,22 @@ const JournalScreen = () => {
 
     const handlePress = async () => {
         setExercises((exercises) => [...exercises, exercise]);
+
         await setDoc(dbPath, {
             exercises: [...exercises, exercise],
             date: today,
         });
+
+        const updatedEntries = entries.map((entry, i) => {
+            if (i === 0) {
+                return { ...entry, exercises: [...exercises, exercise] };
+            } else {
+                return entry;
+            }
+        });
+
+        setEntries(updatedEntries);
+
         clearInputs();
     };
 
