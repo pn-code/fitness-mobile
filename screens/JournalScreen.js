@@ -2,7 +2,7 @@ import { StyleSheet, View, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Button, Input } from "@rneui/base";
 import { auth, db } from "../firebase/firebase";
-import { doc, setDoc, onSnapshot, collection, query } from "firebase/firestore";
+import { doc, setDoc, getDocs, collection, query } from "firebase/firestore";
 import Day from "../components/Day";
 
 const JournalScreen = () => {
@@ -34,7 +34,8 @@ const JournalScreen = () => {
 
     // Load Exercises From DB
     useEffect(() => {
-        const unsubscribe = onSnapshot(q, (snapshot) => {
+        const getEntries = async () => {
+            const snapshot = await getDocs(q);
             const days = [];
             snapshot.forEach((doc) => {
                 days.unshift(doc.data());
@@ -47,9 +48,8 @@ const JournalScreen = () => {
                     );
                 }
             }
-        });
-
-        return unsubscribe;
+        };
+        getEntries();
     }, []);
 
     const handlePress = async () => {
