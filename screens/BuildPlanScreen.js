@@ -4,27 +4,31 @@ import { Button, Input } from "@rneui/base";
 import ExerciseCard from "../components/ExerciseCard";
 import { auth, db } from "../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const BuildPlanScreen = ({ navigation }) => {
     const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
     const [exercise, setExercise] = useState({
         name: "",
         sets: "",
         reps: "",
     });
-    
+
     const [exercises, setExercises] = useState([]);
 
-    const planRef = doc(db, "users", auth.currentUser.uid, "plans", uuidv4())
+    const planRef = doc(db, "plans", uuidv4());
 
     const handleSubmit = async () => {
         await setDoc(planRef, {
-          title,
-          exercises: [...exercises],
-          id: uuidv4()
+            title,
+            desc,
+            exercises: [...exercises],
+            id: uuidv4(),
+            userId: auth.currentUser.uid,
+            user: auth.currentUser.displayName
         });
-        navigation.replace("My Plans")
+        navigation.replace("My Plans");
     };
 
     const handleChange = (text, name) => {
@@ -45,6 +49,12 @@ const BuildPlanScreen = ({ navigation }) => {
             <Input
                 onChangeText={(text) => setTitle(text)}
                 placeholder="Plan Title"
+                keyboardType="text"
+                value={title}
+            />
+            <Input
+                onChangeText={(text) => setDesc(text)}
+                placeholder="Plan Description"
                 keyboardType="text"
                 value={title}
             />
