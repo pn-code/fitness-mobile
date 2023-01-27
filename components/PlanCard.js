@@ -9,7 +9,7 @@ const PlanCard = ({ plan }) => {
     const [saved, setSaved] = useState(
         plan.savedBy.includes(auth.currentUser.uid)
     );
-    console.log(saved);
+
     const handleSave = async () => {
         if (!saved) {
             // If the plan is not saved by the user...
@@ -20,7 +20,6 @@ const PlanCard = ({ plan }) => {
                     savedBy: updatedSave,
                 });
                 setSaved(true);
-                alert("Plan Saved...");
             } catch (error) {
                 console.log(error);
             }
@@ -35,7 +34,6 @@ const PlanCard = ({ plan }) => {
                     savedBy: removedSave,
                 });
                 setSaved(false);
-                alert("Removed Plan from Saved");
             } catch (error) {
                 console.log(error);
             }
@@ -57,10 +55,12 @@ const PlanCard = ({ plan }) => {
                         title={viewPlan ? "Hide Plan" : "View Plan"}
                         onPress={() => setViewPlan((viewPlan) => !viewPlan)}
                     />
-                    <Button
-                        title={!saved ? "Save Plan" : "Unsave Plan"}
-                        onPress={handleSave}
-                    />
+                    {plan.userId !== auth.currentUser.uid && (
+                        <Button
+                            title={!saved ? "Save Plan" : "Unsave Plan"}
+                            onPress={handleSave}
+                        />
+                    )}
                 </View>
             </View>
             {viewPlan && (
