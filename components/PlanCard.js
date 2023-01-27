@@ -1,10 +1,46 @@
 import { StyleSheet, Text, View, Button, ScrollView } from "react-native";
 import React, { useState } from "react";
 import ExerciseCard from "./ExerciseCard";
+import { auth, db } from "../firebase/firebase";
+import { doc, updateDoc } from "firebase/firestore";
 
 const PlanCard = ({ plan }) => {
     const [viewPlan, setViewPlan] = useState(false);
-    const [saved, setSaved] = useState(true);
+    const [saved, setSaved] = useState(
+        plan.savedBy.includes(auth.currentUser.uid)
+    );
+    console.log(saved);
+    const handleSave = async () => {
+        if (!saved) {
+            // If the plan is not saved by the user...
+            // Edit the plan in the DB to include currentUser.uid
+            try {
+                const updatedSave = [...plan.savedBy, auth.currentUser.uid];
+                await updateDoc(doc(db, "plans", plan.id), {
+                    savedBy: updatedSave,
+                });
+                setSaved(true);
+                alert("Plan Saved...");
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            // If the plan is saved by the user...
+            // Remove currentUser.uid from the plan
+            try {
+                const removedSave = plan.savedBy.filter(
+                    (uid) => uid != auth.currentUser.uid
+                );
+                await updateDoc(doc(db, "plans", plan.id), {
+                    savedBy: removedSave,
+                });
+                setSaved(false);
+                alert("Removed Plan from Saved");
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -23,7 +59,7 @@ const PlanCard = ({ plan }) => {
                     />
                     <Button
                         title={!saved ? "Save Plan" : "Unsave Plan"}
-                        onPress={() => setSaved((saved) => !saved)}
+                        onPress={handleSave}
                     />
                 </View>
             </View>
