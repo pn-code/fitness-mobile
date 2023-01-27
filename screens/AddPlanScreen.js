@@ -1,48 +1,42 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PlanCard from "../components/PlanCard";
-import { useState } from "react";
-
-const fakePlan = {
-    title: "Test",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    exercises: [
-        {
-            name: "Push Ups",
-            reps: "20",
-            sets: "10",
-            weight: 180,
-        },
-        {
-            name: "Push Ups",
-            reps: "20",
-            sets: "10",
-            weight: 180,
-        },
-        {
-            name: "Push Ups",
-            reps: "20",
-            sets: "10",
-            weight: 180,
-        },
-        {
-            name: "Push Ups",
-            reps: "20",
-            sets: "10",
-            weight: 180,
-        },
-    ],
-    id: 21390841,
-    user: "Philip Nguyen",
-    userId: 123215431,
-};
+import { auth, db } from "../firebase/firebase";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 const AddPlanScreen = () => {
+    const [plans, setPlans] = useState([]);
+
+    const q = query(
+        collection(db, "plans"),
+        where("userId", "!=", auth.currentUser.uid)
+    );
+
+    // Set Plans to Plans Created by User
+    useEffect(() => {
+        const getSnapshot = async () => {
+            const snapshot = await getDocs(q);
+
+            const snapshotPlans = [];
+            snapshot.forEach((doc) => {
+                snapshotPlans.push(doc.data());
+            });
+            if (snapshotPlans.length > 0) {
+                setPlans(snapshotPlans);
+            }
+        };
+        getSnapshot();
+
+        return getSnapshot;
+    }, []);
+
     return (
         <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
                 {/* Render Individual Plan Components Here */}
-                <PlanCard plan={fakePlan} />
+                {plans.map((plan) => (
+                    <PlanCard key={plan.id} plan={plan} />
+                ))}
             </ScrollView>
         </View>
     );
