@@ -4,6 +4,7 @@ import ExerciseCard from "./ExerciseCard";
 
 const PlanCard = ({ plan }) => {
     const [viewPlan, setViewPlan] = useState(false);
+    const [saved, setSaved] = useState(true);
 
     return (
         <View style={styles.container}>
@@ -15,12 +16,16 @@ const PlanCard = ({ plan }) => {
                     </Text>
                     <Text>{plan.desc}</Text>
                 </View>
-
-                <Button
-                    title={viewPlan ? "Hide Plan" : "View Plan"}
-                    onPress={() => setViewPlan((viewPlan) => !viewPlan)}
-                    style={styles.viewPlanBtn}
-                />
+                <View style={styles.btnContainer}>
+                    <Button
+                        title={viewPlan ? "Hide Plan" : "View Plan"}
+                        onPress={() => setViewPlan((viewPlan) => !viewPlan)}
+                    />
+                    <Button
+                        title={!saved ? "Save Plan" : "Unsave Plan"}
+                        onPress={() => setSaved((saved) => !saved)}
+                    />
+                </View>
             </View>
             {viewPlan && (
                 <ScrollView>
@@ -61,7 +66,7 @@ const styles = StyleSheet.create({
     planText: {
         flex: 3,
     },
-    viewPlanBtn: {
+    btnContainer: {
         flex: 1,
     },
 });
