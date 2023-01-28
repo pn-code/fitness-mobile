@@ -29,7 +29,7 @@ const RegisterScreen = ({ navigation }) => {
         <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <StatusBar style="light" />
 
-            <Text h3 style={{ marginBottom: 50 }}>
+            <Text h3 style={{ marginBottom: 50, textAlign: "center" }}>
                 Create a Fit-Mobile Account
             </Text>
 
@@ -62,7 +62,11 @@ const RegisterScreen = ({ navigation }) => {
                     onSubmitEditing={register}
                 />
             </View>
-            <Button onPress={register} title="Register" style={{}} raised />
+            <Button
+                onPress={register}
+                title="Register"
+                style={{ marginTop: 20 }}
+            />
             <View style={{ height: 100 }} />
         </KeyboardAvoidingView>
     );

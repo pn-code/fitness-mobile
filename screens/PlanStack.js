@@ -18,6 +18,7 @@ const PlanStack = ({ navigation }) => {
         tabBarInactiveTintColor: "white",
         tabBarActiveBackgroundColor: "gray",
         tabBarInactiveBackgroundColor: "black",
+        headerTitleAlign: "left",
         headerRight: () =>
             route.name === "My Plans" && (
                 <View style={styles.nav}>
@@ -30,7 +31,6 @@ const PlanStack = ({ navigation }) => {
                             size={30}
                             color="white"
                         />
-                        <Text style={styles.navText}>Build Plan</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -42,7 +42,6 @@ const PlanStack = ({ navigation }) => {
                             size={30}
                             color="white"
                         />
-                        <Text style={styles.navText}>Add Plan</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -53,7 +52,6 @@ const PlanStack = ({ navigation }) => {
                             rounded
                             source={{ uri: auth?.currentUser?.photoURL }}
                         />
-                        <Text style={styles.navText}>Log Out</Text>
                     </TouchableOpacity>
                 </View>
             ),
@@ -80,7 +78,6 @@ const styles = StyleSheet.create({
     nav: {
         marginRight: 20,
         flexDirection: "row",
-        gap: 20,
         backgroundColor: "black",
     },
     navBtn: {

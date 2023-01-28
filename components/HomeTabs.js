@@ -43,6 +43,7 @@ const HomeTabs = ({ navigation }) => {
         headerStyle: { backgroundColor: "black" },
         headerTitleStyle: { color: "white" },
         headerTintColor: "white",
+        headerTitleAlign: "left",
         headerRight: () => (
             <View>
                 <TouchableOpacity
@@ -50,20 +51,12 @@ const HomeTabs = ({ navigation }) => {
                     style={{
                         justifyContent: "center",
                         alignItems: "center",
-                        marginRight: 20,
                     }}
                 >
                     <Avatar
                         rounded
                         source={{ uri: auth?.currentUser?.photoURL }}
                     />
-                    <Text
-                        style={{
-                            color: "white",
-                        }}
-                    >
-                        Log Out
-                    </Text>
                 </TouchableOpacity>
             </View>
         ),
