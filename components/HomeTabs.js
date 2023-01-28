@@ -8,14 +8,14 @@ import ProfileScreen from "../screens/ProfileScreen";
 import { Avatar } from "@rneui/base";
 import { auth } from "../firebase/firebase";
 
-const HomeTabs = ({navigation}) => {
+const HomeTabs = ({ navigation }) => {
     const Tab = createBottomTabNavigator();
 
     const signOutUser = () => {
-      auth.signOut().then(()=> {
-        navigation.replace("Login")
-      })
-    }
+        auth.signOut().then(() => {
+            navigation.replace("Login");
+        });
+    };
 
     const options = {
         headerStyle: { backgroundColor: "black" },
@@ -27,8 +27,21 @@ const HomeTabs = ({navigation}) => {
         tabBarInactiveBackgroundColor: "black",
         headerRight: () => (
             <View>
-                <TouchableOpacity onPress={signOutUser} style={{ marginRight: 10 }}>
-                    <Avatar source={{ uri: auth?.currentUser?.photoURL }} />
+                <TouchableOpacity
+                    onPress={signOutUser}
+                    style={{ justifyContent: "center", alignItems: "center", marginRight: 20 }}
+                >
+                    <Avatar
+                        rounded
+                        source={{ uri: auth?.currentUser?.photoURL }}
+                    />
+                    <Text
+                        style={{
+                            color: "white",
+                        }}
+                    >
+                        Log Out
+                    </Text>
                 </TouchableOpacity>
             </View>
         ),
@@ -37,7 +50,11 @@ const HomeTabs = ({navigation}) => {
     return (
         <Tab.Navigator screenOptions={options}>
             <Tab.Screen name="Journal" component={JournalScreen} />
-            <Tab.Screen name="Plans" component={PlanStack} />
+            <Tab.Screen
+                name="Plans"
+                options={{ headerShown: false }}
+                component={PlanStack}
+            />
             <Tab.Screen name="FAQ" component={FAQScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
