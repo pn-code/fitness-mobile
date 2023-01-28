@@ -17,14 +17,13 @@ export default ExerciseCard;
 
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: 12,
-        padding: 20,
+        padding: 12,
     },
     name: {
-        fontSize: 24,
+        fontSize: 18,
         fontWeight: "bold",
     },
     detail: {
-        fontSize: 24,
+        fontSize: 18,
     },
 });

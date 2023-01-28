@@ -52,11 +52,13 @@ const PlanCard = ({ plan }) => {
                 </View>
                 <View style={styles.btnContainer}>
                     <Button
+                        color="blue"
                         title={viewPlan ? "Hide Plan" : "View Plan"}
                         onPress={() => setViewPlan((viewPlan) => !viewPlan)}
                     />
                     {plan.userId !== auth.currentUser.uid && (
                         <Button
+                            color="blue"
                             title={!saved ? "Save Plan" : "Unsave Plan"}
                             onPress={handleSave}
                         />
@@ -94,7 +96,7 @@ const styles = StyleSheet.create({
         padding: 12,
     },
     title: {
-        fontSize: 28,
+        fontSize: 20,
         fontWeight: "bold",
         marginBottom: 8,
         color: "blue",
