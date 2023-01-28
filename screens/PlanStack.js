@@ -7,7 +7,6 @@ import BuildPlanScreen from "./BuildPlanScreen";
 import AddPlanScreen from "./AddPlanScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { auth } from "../firebase/firebase";
-import { signOut } from "firebase/auth";
 
 const PlanStack = ({ navigation }) => {
     const Stack = createNativeStackNavigator();
@@ -79,7 +78,7 @@ export default PlanStack;
 
 const styles = StyleSheet.create({
     nav: {
-        marginRight: 16,
+        marginRight: 20,
         flexDirection: "row",
         gap: 20,
         backgroundColor: "black",

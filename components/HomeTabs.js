@@ -5,7 +5,7 @@ import { auth } from "../firebase/firebase";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import JournalScreen from "../screens/JournalScreen";
 import PlanStack from "../screens/PlanStack";
-import LearnScreen from "../screens/LearnScreen";
+import LearnStackScreen from "../screens/LearnStackScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -77,7 +77,7 @@ const HomeTabs = ({ navigation }) => {
                 options={{ headerShown: false }}
                 component={PlanStack}
             />
-            <Tab.Screen name="Learn" component={LearnScreen} />
+            <Tab.Screen name="Learn" component={LearnStackScreen} />
             <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
     );
