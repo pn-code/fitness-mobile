@@ -149,16 +149,12 @@ const styles = StyleSheet.create({
     inputContainer: {
         backgroundColor: "#404040",
     },
-    scrollView: {
-        marginHorizontal: 20,
-    },
     flexInputs: {
-        display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "space-around",
     },
     input: {
-        width: 100,
+        flex: 1,
         color: "white",
         marginVertical: 10,
     },

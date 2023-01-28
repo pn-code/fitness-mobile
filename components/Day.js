@@ -9,7 +9,6 @@ const Day = ({ date, exercises }) => {
             <Text h4 style={styles.date}>
                 {date}
             </Text>
-            <Text h5>Exercises: </Text>
             {exercises.map((exercise) => (
                 <Exercise
                     key={
@@ -32,11 +31,15 @@ export default Day;
 
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: 40,
+        marginHorizontal: 10,
         marginVertical: 20,
+        overflow: "scroll",
     },
     date: {
         textAlign: "center",
-        fontWeight: .8,
+        fontWeight: "bold",
+        marginBottom: 10,
+        borderBottomWidth: 2,
+        borderColor: "black"
     },
 });
