@@ -85,37 +85,37 @@ const JournalScreen = () => {
             <View style={styles.inputContainer}>
                 <Input
                     placeholderTextColor="#ababab"
-                    style={styles.input}
+                    style={styles.inputText}
                     type="text"
                     placeholder="Exercise Name"
                     onChangeText={(text) => setName(text)}
                     value={name}
                 />
                 <View style={styles.flexInputs}>
-                    <View>
+                    <View style={styles.input}>
                         <Input
+                            style={styles.inputText}
                             placeholderTextColor="#ababab"
-                            style={styles.input}
                             type="number"
                             placeholder="Weight (lb)"
                             onChangeText={(text) => setWeight(text)}
                             value={weight}
                         />
                     </View>
-                    <View>
+                    <View style={styles.input}>
                         <Input
+                            style={styles.inputText}
                             placeholderTextColor="#ababab"
-                            style={styles.input}
                             type="number"
                             placeholder="Sets"
                             onChangeText={(text) => setSets(text)}
                             value={sets}
                         />
                     </View>
-                    <View>
+                    <View style={styles.input}>
                         <Input
+                            style={styles.inputText}
                             placeholderTextColor="#ababab"
-                            style={styles.input}
                             type="number"
                             placeholder="Reps"
                             onChangeText={(text) => setReps(text)}
@@ -148,14 +148,16 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         backgroundColor: "#404040",
+        paddingTop: 10,
     },
     flexInputs: {
         flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
     },
     input: {
         flex: 1,
+    },
+    inputText: {
         color: "white",
-        marginVertical: 10,
     },
 });
