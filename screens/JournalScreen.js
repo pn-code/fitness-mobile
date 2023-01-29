@@ -20,7 +20,7 @@ const JournalScreen = () => {
     .slice(0, 9)
     .replaceAll("/", "-");
 
-  console.log(today);
+
   const exercise = {
     name,
     weight,
@@ -85,40 +85,40 @@ const JournalScreen = () => {
         <Input
           placeholderTextColor="#ababab"
           style={styles.inputText}
-          type="text"
           placeholder="Exercise Name"
           onChangeText={(text) => setName(text)}
           value={name}
+          maxLength={20}
         />
         <View style={styles.flexInputs}>
           <View style={styles.input}>
             <Input
               style={styles.inputText}
               placeholderTextColor="#ababab"
-              type="number"
               placeholder="Weight (lb)"
               onChangeText={(text) => setWeight(text)}
               value={weight}
+              maxLength={4}
             />
           </View>
           <View style={styles.input}>
             <Input
               style={styles.inputText}
               placeholderTextColor="#ababab"
-              type="number"
               placeholder="Sets"
               onChangeText={(text) => setSets(text)}
               value={sets}
+              maxLength={2}
             />
           </View>
           <View style={styles.input}>
             <Input
               style={styles.inputText}
               placeholderTextColor="#ababab"
-              type="number"
               placeholder="Reps"
               onChangeText={(text) => setReps(text)}
               value={reps}
+              maxLength={3}
             />
           </View>
         </View>
