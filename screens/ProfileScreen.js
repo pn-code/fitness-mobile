@@ -5,7 +5,7 @@ import { auth } from "../firebase/firebase";
 
 const ProfileScreen = ({ navigation }) => {
   const { currentUser: user } = auth;
-  console.log(user);
+
   const signOutUser = () => {
     auth.signOut().then(() => {
       navigation.replace("Login");
@@ -13,7 +13,7 @@ const ProfileScreen = ({ navigation }) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       {/* Profile Header */}
       <View style={styles.header}>
         <Image
@@ -30,7 +30,7 @@ const ProfileScreen = ({ navigation }) => {
 
       {/* User Log Out */}
       <View>
-        <Button onPress={signOutUser} title="Log Out" />
+        <Button style={{ width: 120 }} onPress={signOutUser} title="Log Out" />
       </View>
     </View>
   );
@@ -39,11 +39,18 @@ const ProfileScreen = ({ navigation }) => {
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+  },
   header: {
     marginTop: 20,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
+    gap: 20,
+    borderBottomColor: "gray",
+    borderBottomWidth: 2,
+    marginBottom: 20,
   },
   headerText: {
     fontSize: 24,
@@ -51,6 +58,6 @@ const styles = StyleSheet.create({
   },
   desc: {
     marginHorizontal: 20,
-    marginVertical: 10,
+    marginBottom: 20,
   },
 });
