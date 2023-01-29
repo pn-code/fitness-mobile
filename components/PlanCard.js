@@ -83,8 +83,8 @@ export default PlanCard;
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 10,
-        borderRadius: 20,
+        marginVertical: 5,
+        borderRadius: 6,
         backgroundColor: "#d6d6d6",
         padding: 12,
     },

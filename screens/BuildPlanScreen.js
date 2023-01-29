@@ -7,92 +7,89 @@ import { doc, setDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 
 const BuildPlanScreen = ({ navigation }) => {
-    const [title, setTitle] = useState("");
-    const [desc, setDesc] = useState("");
-    const [exercise, setExercise] = useState({
-        name: "",
-        sets: "",
-        reps: "",
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [exercise, setExercise] = useState({
+    name: "",
+    sets: "",
+    reps: "",
+  });
+
+  const [exercises, setExercises] = useState([]);
+
+  const handleSubmit = async () => {
+    const planId = uuidv4();
+    await setDoc(doc(db, "plans", planId), {
+      title,
+      desc,
+      exercises: [...exercises],
+      id: planId,
+      userId: auth.currentUser.uid,
+      user: auth.currentUser.displayName,
+      savedBy: [auth.currentUser.uid],
     });
+    navigation.replace("My Plans");
+  };
 
-    const [exercises, setExercises] = useState([]);
+  const handleChange = (text, name) => {
+    setExercise((exercise) => ({ ...exercise, [name]: text }));
+  };
 
-    const handleSubmit = async () => {
-        const planId = uuidv4()
-        await setDoc(doc(db, "plans", planId), {
-            title,
-            desc,
-            exercises: [...exercises],
-            id: planId,
-            userId: auth.currentUser.uid,
-            user: auth.currentUser.displayName,
-            savedBy: [auth.currentUser.uid]
-        });
-        navigation.replace("My Plans");
-    };
+  const handleExercise = () => {
+    setExercises((exercises) => [...exercises, exercise]);
+    setExercise({
+      name: "",
+      sets: "",
+      reps: "",
+    });
+  };
 
-    const handleChange = (text, name) => {
-        setExercise((exercise) => ({ ...exercise, [name]: text }));
-    };
+  return (
+    <ScrollView style={{ marginTop: 20 }}>
+      <Input
+        onChangeText={(text) => setTitle(text)}
+        placeholder="Plan Title"
+        keyboardType="text"
+        value={title}
+      />
+      <Input
+        onChangeText={(text) => setDesc(text)}
+        placeholder="Plan Description"
+        keyboardType="text"
+        value={desc}
+      />
 
-    const handleExercise = () => {
-        setExercises((exercises) => [...exercises, exercise]);
-        setExercise({
-            name: "",
-            sets: "",
-            reps: "",
-        });
-    };
+      <View>
+        <Input
+          onChangeText={(text) => handleChange(text, "name")}
+          placeholder="Exercise Name"
+          keyboardType="text"
+          value={exercise.name}
+        />
+        <Input
+          onChangeText={(text) => handleChange(text, "sets")}
+          placeholder="Set Scheme (for example: 3-4)"
+          keyboardType="text"
+          value={exercise.sets}
+        />
+        <Input
+          onChangeText={(text) => handleChange(text, "reps")}
+          placeholder="Rep Scheme (for example: 8-12)"
+          keyboardType="text"
+          value={exercise.reps}
+        />
+      </View>
 
-    return (
-        <ScrollView>
-            <Input
-                onChangeText={(text) => setTitle(text)}
-                placeholder="Plan Title"
-                keyboardType="text"
-                value={title}
-            />
-            <Input
-                onChangeText={(text) => setDesc(text)}
-                placeholder="Plan Description"
-                keyboardType="text"
-                value={desc}
-            />
+      <ScrollView>
+        {exercises.map((exercise) => (
+          <ExerciseCard key={exercise.name + new Date()} exercise={exercise} />
+        ))}
+      </ScrollView>
 
-            <View>
-                <Input
-                    onChangeText={(text) => handleChange(text, "name")}
-                    placeholder="Exercise Name"
-                    keyboardType="text"
-                    value={exercise.name}
-                />
-                <Input
-                    onChangeText={(text) => handleChange(text, "sets")}
-                    placeholder="Set Scheme (for example: 3-4)"
-                    keyboardType="text"
-                    value={exercise.sets}
-                />
-                <Input
-                    onChangeText={(text) => handleChange(text, "reps")}
-                    placeholder="Rep Scheme (for example: 8-12)"
-                    keyboardType="text"
-                    value={exercise.reps}
-                />
-            </View>
-
-            <ScrollView>
-                {exercises.map((exercise) => (
-                    <ExerciseCard
-                        key={exercise.name + new Date()}
-                        exercise={exercise}
-                    />
-                ))}
-            </ScrollView>
-
-            <Button onPress={handleExercise} title="Add Exercise" />
-            <Button onPress={handleSubmit} title="Submit Plan" />
-        </ScrollView>
-    );
+      <Button onPress={handleExercise} title="Add Exercise" />
+      <Button onPress={handleSubmit} title="Submit Plan" />
+    </ScrollView>
+  );
 };
 
 export default BuildPlanScreen;
