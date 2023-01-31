@@ -82,6 +82,12 @@ const JournalScreen = () => {
             { merge: true }
         );
 
+        if (date === today) {
+            setExercises((exercises) =>
+                exercises.filter((exercise) => exercise.id !== exerciseId)
+            );
+        }
+
         setEntries((entries) =>
             entries.map((entry) =>
                 entry == target
@@ -102,11 +108,11 @@ const JournalScreen = () => {
         const newEntry = {
             exercises: [...exercises, exercise],
             date: today,
-        }
+        };
 
         await setDoc(dbPath, newEntry);
 
-        setEntries(entries => [newEntry, ...entries]);
+        setEntries((entries) => [newEntry, ...entries]);
 
         clearInputs();
     };
