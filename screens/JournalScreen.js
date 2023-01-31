@@ -112,7 +112,14 @@ const JournalScreen = () => {
 
         await setDoc(dbPath, newEntry);
 
-        setEntries((entries) => [newEntry, ...entries]);
+        if (entries[0].date !== newEntry.date) {
+            setEntries((entries) => [newEntry, ...entries]);
+        } else {
+            const updatedEntries = entries.map((entry) =>
+                entry.date === newEntry.date ? newEntry : entry
+            );
+            setEntries(updatedEntries);
+        }
 
         clearInputs();
     };
