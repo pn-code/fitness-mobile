@@ -6,14 +6,18 @@ const LearnHomeScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Select a subject...</Text>
-            <View>
+            <View style={styles.btnContainer}>
                 <Button
+                    titleStyle={styles.btnTitle}
+                    buttonStyle={styles.btn}
+                    color="blue"
                     onPress={() => navigation.navigate("Fitness")}
                     title="Fitness"
                 />
-            </View>
-            <View>
                 <Button
+                    titleStyle={styles.btnTitle}
+                    buttonStyle={styles.btn}
+                    color="red"
                     onPress={() => navigation.navigate("Nutrition")}
                     title="Nutrition"
                 />
@@ -31,5 +35,20 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
         marginVertical: 20,
+    },
+    btnContainer: {
+        marginTop: 50,
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        gap: 100,
+    },
+    btn: {
+        borderRadius: 20,
+        width: 300,
+        height: 120,
+    },
+    btnTitle: {
+        fontSize: 24,
+        fontWeight: "bold",
     },
 });

@@ -9,7 +9,7 @@ const Day = ({ date, exercises, deleteExercise, edit, deleteDay }) => {
             <Text h4 style={styles.date}>
                 {date}
             </Text>
-            { (exercises.length === 0 && edit) && <Button onPress={() => deleteDay(date)} title="Delete Day"/>}
+            { (exercises.length === 0 && edit) && <Button color="red" onPress={() => deleteDay(date)} title="Delete Day"/>}
             {exercises.map((exercise) => (
                 <Exercise
                     key={
