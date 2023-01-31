@@ -2,7 +2,14 @@ import { StyleSheet, View, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Button, Input } from "@rneui/base";
 import { auth, db } from "../firebase/firebase";
-import { doc, setDoc, getDocs, collection, query } from "firebase/firestore";
+import {
+    doc,
+    setDoc,
+    getDocs,
+    collection,
+    query,
+    deleteDoc,
+} from "firebase/firestore";
 import Day from "../components/Day";
 import { uuidv4 } from "@firebase/util";
 
@@ -82,6 +89,11 @@ const JournalScreen = () => {
                     : entry
             )
         );
+    };
+
+    const deleteDay = async (date) => {
+        await deleteDoc(doc(db, "users", auth.currentUser.uid, "days", date));
+        setEntries((entries) => entries.filter((entry) => entry.date !== date));
     };
 
     const handlePress = async () => {
@@ -180,6 +192,7 @@ const JournalScreen = () => {
                         exercises={entry.exercises}
                         edit={edit}
                         deleteExercise={deleteExercise}
+                        deleteDay={deleteDay}
                     />
                 ))}
             </ScrollView>
