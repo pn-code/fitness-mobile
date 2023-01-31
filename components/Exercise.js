@@ -1,15 +1,21 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { Button } from "@rneui/base";
 
-const Exercise = ({ name, weight, sets, reps }) => {
+const Exercise = ({ id, date, name, weight, sets, reps, edit, deleteExercise }) => {
     return (
-        <View style={styles.exercise}>
-            <Text style={styles.text}>
-                {name} @ {weight} lbs
-            </Text>
-            <Text style={styles.text}>
-                {sets} x {reps}
-            </Text>
+        <View style={styles.container}>
+            <View style={styles.exercise}>
+                <Text style={styles.text}>
+                    {name} @ {weight} lbs
+                </Text>
+                <Text style={styles.text}>
+                    {sets} x {reps}
+                </Text>
+            </View>
+            {edit && <View>
+                <Button onPress={() => deleteExercise(id, date)} color="red" title="X"/>
+            </View>}
         </View>
     );
 };
