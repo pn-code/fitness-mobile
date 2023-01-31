@@ -1,9 +1,10 @@
 import { StyleSheet, View, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Button, ButtonGroup, Input } from "@rneui/base";
+import { Button, Input } from "@rneui/base";
 import { auth, db } from "../firebase/firebase";
 import { doc, setDoc, getDocs, collection, query } from "firebase/firestore";
 import Day from "../components/Day";
+import { uuidv4 } from "@firebase/util";
 
 const JournalScreen = () => {
     const [name, setName] = useState("");
@@ -22,6 +23,7 @@ const JournalScreen = () => {
         .replaceAll("/", "-");
 
     const exercise = {
+        id: uuidv4(),
         name,
         weight,
         sets,
@@ -52,6 +54,35 @@ const JournalScreen = () => {
         };
         getEntries();
     }, []);
+
+    const handleEdit = () => {
+        setEdit((edit) => !edit);
+    };
+
+    const deleteExercise = async (exerciseId, date) => {
+        const target = entries.filter((entry) => entry.date)[0];
+        const updatedExercises = target.exercises.filter(
+            (exercise) => exercise.id !== exerciseId
+        );
+
+        await setDoc(
+            doc(db, "users", auth.currentUser.uid, "days", date),
+            {
+                exercises: target.exercises.filter(
+                    (exercise) => exercise.id !== exerciseId
+                ),
+            },
+            { merge: true }
+        );
+
+        setEntries((entries) =>
+            entries.map((entry) =>
+                entry == target
+                    ? { ...entry, exercises: updatedExercises }
+                    : entry
+            )
+        );
+    };
 
     const handlePress = async () => {
         setExercises((exercises) => [...exercises, exercise]);
@@ -134,7 +165,7 @@ const JournalScreen = () => {
             {/* Edit Button */}
             <View>
                 <Button
-                    onPress={() => setEdit((edit) => !edit)}
+                    onPress={() => handleEdit()}
                     title={edit ? "Finish Editing" : "Edit"}
                     color={edit ? "salmon" : "green"}
                 />
@@ -147,6 +178,8 @@ const JournalScreen = () => {
                         key={entry.date}
                         date={entry.date}
                         exercises={entry.exercises}
+                        edit={edit}
+                        deleteExercise={deleteExercise}
                     />
                 ))}
             </ScrollView>
