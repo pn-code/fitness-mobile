@@ -1,14 +1,17 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import { Text } from "@rneui/base";
+import { Button, Text } from "@rneui/base";
 
-const ExerciseCard = ({ exercise }) => {
+const ExerciseCard = ({ exercise, removeExercise, build }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.name}>{exercise.name}</Text>
             <Text style={styles.detail}>
                 {exercise.sets} sets of {exercise.reps} reps
             </Text>
+            {build && (
+                <Button title="X" onPress={() => removeExercise(exercise.id)} />
+            )}
         </View>
     );
 };
