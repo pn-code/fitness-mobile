@@ -10,6 +10,7 @@ const BuildPlanScreen = ({ navigation }) => {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [exercise, setExercise] = useState({
+        id: uuidv4(),
         name: "",
         sets: "",
         reps: "",
@@ -18,7 +19,7 @@ const BuildPlanScreen = ({ navigation }) => {
     const [exercises, setExercises] = useState([]);
 
     const handleSubmit = async () => {
-        const planId = uuidv4()
+        const planId = uuidv4();
         await setDoc(doc(db, "plans", planId), {
             title,
             desc,
@@ -26,7 +27,7 @@ const BuildPlanScreen = ({ navigation }) => {
             id: planId,
             userId: auth.currentUser.uid,
             user: auth.currentUser.displayName,
-            savedBy: [auth.currentUser.uid]
+            savedBy: [auth.currentUser.uid],
         });
         navigation.replace("My Plans");
     };
@@ -38,11 +39,19 @@ const BuildPlanScreen = ({ navigation }) => {
     const handleExercise = () => {
         setExercises((exercises) => [...exercises, exercise]);
         setExercise({
+            id: uuidv4(),
             name: "",
             sets: "",
             reps: "",
         });
     };
+
+    const removeExercise = (id) => {
+        setExercises((exercises) =>
+            exercises.filter((exercise) => exercise.id !== id)
+        );
+    };
+    console.log(exercises)
 
     return (
         <ScrollView>
@@ -85,6 +94,8 @@ const BuildPlanScreen = ({ navigation }) => {
                     <ExerciseCard
                         key={exercise.name + new Date()}
                         exercise={exercise}
+                        build={true}
+                        removeExercise={removeExercise}
                     />
                 ))}
             </ScrollView>
