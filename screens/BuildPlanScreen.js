@@ -16,7 +16,7 @@ const BuildPlanScreen = ({ navigation }) => {
         reps: "",
     });
 
-    const [exercises, setExercises] = useState([])
+    const [exercises, setExercises] = useState([]);
 
     const handleChange = (text, name) => {
         setExercise((exercise) => ({ ...exercise, [name]: text }));
@@ -99,12 +99,33 @@ const BuildPlanScreen = ({ navigation }) => {
                 ))}
             </ScrollView>
 
-            <Button onPress={handleExercise} title="Add Exercise" />
-            <Button onPress={handleSubmit} title="Submit Plan" />
+            <View style={styles.btnContainer}>
+                <Button
+                    buttonStyle={styles.btn}
+                    onPress={handleExercise}
+                    title="Add Exercise"
+                />
+                <Button
+                    color="black"
+                    buttonStyle={styles.btn}
+                    onPress={handleSubmit}
+                    title="Submit Plan"
+                />
+            </View>
         </ScrollView>
     );
 };
 
 export default BuildPlanScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    btnContainer: {
+        marginTop: 12,
+        flexDirection: "row",
+        justifyContent: "space-evenly"
+    },
+    btn: {
+        height: 100,
+        width: 200,
+    },
+});
