@@ -5,12 +5,19 @@ import { Button, Text } from "@rneui/base";
 const ExerciseCard = ({ exercise, removeExercise, build }) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.name}>{exercise.name}</Text>
-            <Text style={styles.detail}>
-                {exercise.sets} sets of {exercise.reps} reps
-            </Text>
+            <View>
+                <Text style={styles.name}>{exercise.name}</Text>
+                <Text style={styles.detail}>
+                    {exercise.sets} sets of {exercise.reps} reps
+                </Text>
+            </View>
             {build && (
-                <Button title="X" onPress={() => removeExercise(exercise.id)} />
+                <Button
+                    style={{width: 100}}
+                    color="red"
+                    title="X"
+                    onPress={() => removeExercise(exercise.id)}
+                />
             )}
         </View>
     );
@@ -20,7 +27,9 @@ export default ExerciseCard;
 
 const styles = StyleSheet.create({
     container: {
-        padding: 12,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        padding: 20,
     },
     name: {
         fontSize: 18,
