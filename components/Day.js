@@ -1,14 +1,15 @@
 import { StyleSheet, ScrollView } from "react-native";
-import { Text } from "@rneui/base";
+import { Button, Text } from "@rneui/base";
 import React from "react";
 import Exercise from "./Exercise";
 
-const Day = ({ date, exercises, deleteExercise, edit }) => {
+const Day = ({ date, exercises, deleteExercise, edit, deleteDay }) => {
     return (
         <ScrollView style={styles.container}>
             <Text h4 style={styles.date}>
                 {date}
             </Text>
+            { (exercises.length === 0 && edit) && <Button onPress={() => deleteDay(date)} title="Delete Day"/>}
             {exercises.map((exercise) => (
                 <Exercise
                     key={
