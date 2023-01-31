@@ -32,11 +32,18 @@ const AddPlanScreen = () => {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.desc}>
+                Here, you can view other's submitted plans.
+            </Text>
             <ScrollView style={styles.scrollView}>
                 {/* Render Individual Plan Components Here */}
-                {plans.map((plan) => (
-                    <PlanCard key={plan.id} plan={plan} />
-                ))}
+                {plans.length > 0 ? (
+                    plans.map((plan) => <PlanCard key={plan.id} plan={plan} />)
+                ) : (
+                    <Text style={styles.text}>
+                        Currently, there are no other plans available...
+                    </Text>
+                )}
             </ScrollView>
         </View>
     );
@@ -47,6 +54,21 @@ export default AddPlanScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    desc: {
+        textAlign: "center",
+        fontSize: 18,
+        fontWeight: 700,
+        borderBottomWidth: 1,
+        borderBottomColor: "black",
+        marginVertical: 10,
+        paddingBottom: 10,
+    },
+    text: {
+        textAlign: "center",
+        fontSize: 16,
+        color: "gray",
+        fontWeight: "bold",
     },
     scrollView: {
         marginHorizontal: 20,
