@@ -47,7 +47,7 @@ const MyPlansScreen = ({ navigation }) => {
         <View style={styles.container}>
             <Button onPress={getSnapshot} title="Refresh" />
             {plans.length === 0 ? (
-                <Text>You currently have no plans</Text>
+                <Text style={styles.text}>You currently have no plans</Text>
             ) : (
                 <ScrollView style={styles.scrollView}>
                     {plans.map((plan) => (
@@ -71,5 +71,11 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         marginHorizontal: 20,
+    },
+    text: {
+        marginTop: 20,
+        textAlign: "center",
+        fontSize: 24,
+        fontWeight: "bold",
     },
 });
