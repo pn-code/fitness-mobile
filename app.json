@@ -1,13 +1,14 @@
 {
   "expo": {
-    "name": "fitness-mobile",
+    "name": "Fitness Mobile",
     "slug": "fitness-mobile",
     "version": "1.0.0",
+    "description": "Provides tools to track and create exercise plans.",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/strength-icon.jpg",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/strength-icon.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

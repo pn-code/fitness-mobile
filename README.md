@@ -1,6 +1,6 @@
 # fitness-mobile
 
-<p>Fitness App created with React Native intended to track workouts and calories, and create workout and diet plans.</p>
+<p>Developed with React Native, this app gives users access to tools to create exercise plans and track their implementation of the plan.</p>
 
 ## Featuring...
 
