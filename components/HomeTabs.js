@@ -67,7 +67,7 @@ const HomeTabs = ({ navigation }) => {
         options={{ headerShown: false }}
         component={PlanStack}
       />
-      <Tab.Screen name="Learn" component={LearnStackScreen} />
+      {/* <Tab.Screen name="Learn" component={LearnStackScreen} /> */}
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
